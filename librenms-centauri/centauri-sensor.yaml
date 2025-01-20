@@ -1,0 +1,35 @@
+mib: TCT-SNMP-MIB
+modules:
+    sensors:
+        signal:
+            data:
+                -
+                    oid: tctSnmpTxPwr
+                    num_oid: '.1.3.6.1.4.1.54505.1.3'
+                    descr: 'TX Power'
+                    group: 'Laser Signal'
+                    index: 'tctSnmpTxPwr.{{ $index }}'
+                    low_limit:   -10
+                    high_limit:  24
+                -
+                    oid: tctSnmpRxPwr
+                    num_oid: '.1.3.6.1.4.1.54505.1.1'
+                    descr: 'RX Power'
+                    group: 'Laser Signal'
+                    index: 'tctSnmpRxPwr.{{ $index }}'
+                    low_limit:   -35
+                    high_limit:  -10
+        state:
+            data:
+                -
+                    oid: tctSnmpLinkStatus
+                    num_oid: '.1.3.6.1.4.1.54505.1.2'
+                    descr: 'Laser Link Status'
+                    group: 'Laser Signal'
+                    index: 'tctSnmpLinkStatus.{{ $index }}'
+                    low_limit:   0
+                    high_limit:  1
+                    state_name: tctSnmpLinkStatus
+                    states:
+                        - { value:  0, generic: 2, graph: 0, descr: critical }
+                        - { value:  1, generic: 0, graph: 0, descr: normal }

@@ -166,5 +166,7 @@ return [
         'HP-ICF-FAULT-FINDER-MIB::hpicfFaultFinderTrap' => LibreNMS\Snmptrap\Handlers\HpFault::class,
         'MPLS-LDP-MIB::mplsLdpSessionDown' => LibreNMS\Snmptrap\Handlers\CiscoLdpSesDown::class,
         'MPLS-LDP-MIB::mplsLdpSessionUp' => LibreNMS\Snmptrap\Handlers\CiscoLdpSesUp::class,
+        'TCT-SNMP-MIB::tctLaserLinkDown' => LibreNMS\Snmptrap\Handlers\TctLinkDown::class,
+        'TCT-SNMP-MIB::tctTrigger' => LibreNMS\Snmptrap\Handlers\TctTrigger::class,
     ],
 ];

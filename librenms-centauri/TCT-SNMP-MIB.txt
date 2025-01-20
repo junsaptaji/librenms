@@ -1,0 +1,86 @@
+TCT-SNMP-MIB DEFINITIONS ::= BEGIN
+
+--
+-- https://tools.ietf.org/html/rfc3584
+--
+-- Example MIB objects for agent module example implementations
+-- http://net-snmp.sourceforge.net/wiki/index.php/Writing_your_own_MIBs
+-- http://net-snmp.sourceforge.net/docs/mibs/NET-SNMP-MIB.txt
+-- http://net-snmp.sourceforge.net/docs/mibs/NET-SNMP-EXAMPLES-MIB.txt
+-- Run `snmptranslate -On TCT-SNMP-MIB::tctSnmpRxPwr` to get the address for a measurement
+--
+
+IMPORTS
+    OBJECT-TYPE, Integer32,
+	MODULE-IDENTITY, enterprises    FROM SNMPv2-SMI;
+
+tctSnmp MODULE-IDENTITY
+    LAST-UPDATED "201912120000Z"
+    ORGANIZATION "transcelestial.org"
+    CONTACT-INFO
+	"
+    postal: 28A Temple Street,
+            058573, Singapore
+    email:  dev@transcelestial.com
+    "
+    DESCRIPTION
+	"MIB objects for Centauri SNMP queries"
+
+    REVISION     "201912120000Z"
+    DESCRIPTION
+	"First draft"
+    ::= { enterprises 54505 }
+
+--
+-- Measurements
+--
+tctSnmpMeasurements OBJECT IDENTIFIER ::= { tctSnmp 1 }
+
+tctSnmpRxPwr OBJECT-TYPE
+    SYNTAX      OCTET STRING
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+	"Get device receive power in dBm"
+
+    ::= { tctSnmpMeasurements 1 }
+
+tctSnmpLinkStatus OBJECT-TYPE
+    SYNTAX      Integer32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+	"Get laser link status:
+        - 0: link is down
+        - 1: link is up
+    "
+
+    ::= { tctSnmpMeasurements 2 }
+
+tctSnmpTxPwr OBJECT-TYPE
+    SYNTAX      OCTET STRING
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+	"Get device transmit power in dBm"
+
+    ::= { tctSnmpMeasurements 3 }
+
+
+tctTraps  OBJECT IDENTIFIER ::= { tctSnmp 2 }
+ 
+     tctLaserLinkDown NOTIFICATION-TYPE
+                     -- Note: 2 OID's get added to this trap prior to it being sent
+                     -- SNMPv2-MIB::sysName and TCT-SNMP-MIB::tctSnmpRxPwr
+                     STATUS current
+       		DESCRIPTION "Centauri link down notification"
+       		::= { tctTraps 1 }
+
+     tctTrigger NOTIFICATION-TYPE
+		     		-- Note: additional OID's get added to this trap prior to it being sent
+                    -- SNMPv2-MIB::sysName.0 is always added
+                    -- The rest of the payload will have OID's describing what triggered the event
+                    STATUS current
+       			DESCRIPTION "Centauri monitor event triggered"
+       			::= { tctTraps 2 }
+END

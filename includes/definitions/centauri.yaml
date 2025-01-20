@@ -1,0 +1,31 @@
+os: centauri-linux
+type: network
+group: unix
+text: Centauri-Linux
+icon: centauri
+mib_dir: transcelestial
+ifXmcbc: true
+ifname: true
+over:
+    - { graph: device_state, text: 'Laser Link Status' }
+    - { graph: device_signal, text: 'Laser Power' }
+    - { graph: device_processor, text: 'Processor Usage' }
+    - { graph: device_storage, text: 'Storage Usage' }
+poller_modules:
+    bgp-peers: false
+    ospf: false
+    stp: false
+discovery_modules:
+    applications: true
+    bgp-peers: false
+    stp: false
+    vmware-vminfo: false
+    libvirt-vminfo: false
+processor_stacked: true
+discovery:
+    -
+        sysDescr:
+              - 'Linux CEN001-202'
+              - 'Linux CEN010-202'
+              - 'Linux CEN025-202'
+              - 'Linux CEN050-202'

@@ -1,0 +1,321 @@
+TCT-SNMP-MIB DEFINITIONS ::= BEGIN
+
+--
+-- https://tools.ietf.org/html/rfc3584
+--
+-- Example MIB objects for agent module example implementations
+-- http://net-snmp.sourceforge.net/wiki/index.php/Writing_your_own_MIBs
+-- http://net-snmp.sourceforge.net/docs/mibs/NET-SNMP-MIB.txt
+-- http://net-snmp.sourceforge.net/docs/mibs/NET-SNMP-EXAMPLES-MIB.txt
+-- Run `snmptranslate -On TCT-SNMP-MIB::tctSnmpRxPwr` to get the address for a measurement
+--
+
+IMPORTS
+    OBJECT-TYPE, Integer32,
+	MODULE-IDENTITY, enterprises    FROM SNMPv2-SMI;
+
+tctSnmp MODULE-IDENTITY
+    LAST-UPDATED "202410280000Z"
+    ORGANIZATION "transcelestial.org"
+    CONTACT-INFO
+	"
+    postal: #06-04 101 Eunos Ave 3,
+            409835, Singapore
+    email:  support@transcelestial.com
+    "
+    DESCRIPTION
+	"MIB objects for Centauri SNMP queries"
+
+    REVISION     "202410280000Z"
+    DESCRIPTION
+	"Released"
+    ::= { enterprises 54505 }
+
+--
+-- Measurements
+--
+tctSnmpMeasurements OBJECT IDENTIFIER ::= { tctSnmp 1 }
+
+tctSnmpRxPwr OBJECT-TYPE
+    SYNTAX      DISPLAYSTRING
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+	"RX power (dBm)"
+    ::= { tctSnmpMeasurements 1 }
+
+tctSnmpLinkStatus OBJECT-TYPE
+    SYNTAX      Integer32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+	"Link status: (0) down; (1) up"
+    ::= { tctSnmpMeasurements 2 }
+
+tctSnmpTxPwr OBJECT-TYPE
+    SYNTAX      DISPLAYSTRING
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+	"TX power (dBm)"
+    ::= { tctSnmpMeasurements 3 }
+
+tctSnmpRxMinPwr OBJECT-TYPE
+    SYNTAX      DISPLAYSTRING
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+	"Minimum RX power in the past 1 minute (dBm)"
+    ::= { tctSnmpMeasurements 4 }
+
+tctSnmpHumidity OBJECT-TYPE
+    SYNTAX      DISPLAYSTRING
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+	"Humidity (%)"
+    ::= { tctSnmpMeasurements 5 }
+
+tctSnmpWindowTemp OBJECT-TYPE
+    SYNTAX      DISPLAYSTRING
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+	"Temperature of window heater (degrees Celsius)"
+    ::= { tctSnmpMeasurements 6 }
+
+tctSnmpHeaterOn OBJECT-TYPE
+    SYNTAX      Integer32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+	"Window heater status: (0) off; (1) on"
+    ::= { tctSnmpMeasurements 7 }
+
+tctSnmpHeaterAuto OBJECT-TYPE
+    SYNTAX      Integer32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+	"Window heater auto status: (0) off; (1) on"
+    ::= { tctSnmpMeasurements 8 }
+
+tctSnmpPosition OBJECT-TYPE
+    SYNTAX      DISPLAYSTRING
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+	"Position of laser (JSON string)"
+    ::= { tctSnmpMeasurements 9 }
+
+tctSnmpVibrationAlert OBJECT-TYPE
+    SYNTAX      Integer32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+	"Vibration is excessive: (0) no; (1) yes"
+    ::= { tctSnmpMeasurements 10 }
+
+tctSnmpVibrationValue OBJECT-TYPE
+    SYNTAX      DISPLAYSTRING
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+	"Vibration (JSON string)"
+    ::= { tctSnmpMeasurements 11 }
+
+tctSnmpCorrectionAlert OBJECT-TYPE
+    SYNTAX      Integer32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+	"Correction vector is excessive: (0) no; (1) yes"
+    ::= { tctSnmpMeasurements 12 }
+
+tctSnmpCorrectionValue OBJECT-TYPE
+    SYNTAX      DISPLAYSTRING
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+	"Correction vector (JSON string)"
+    ::= { tctSnmpMeasurements 13 }
+
+tctSnmpMaintenance OBJECT-TYPE
+    SYNTAX      Integer32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+	"Maintenance mode status: (0) off; (1) on"
+    ::= { tctSnmpMeasurements 14 }
+
+tctSnmpSfpRx OBJECT-TYPE
+    SYNTAX      DISPLAYSTRING
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+	"External SFP RX power (dBm)"
+    ::= { tctSnmpMeasurements 15 }
+
+tctSnmpSfpTx OBJECT-TYPE
+    SYNTAX      DISPLAYSTRING
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+	"External SFP TX power (dBm)"
+    ::= { tctSnmpMeasurements 16 }
+
+tctSnmpRxAvgPwr OBJECT-TYPE
+    SYNTAX      DISPLAYSTRING
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+	"Average RX power in the past 1 minute (dBm)"
+    ::= { tctSnmpMeasurements 17 }
+
+tctSnmpAvgLinkStatus OBJECT-TYPE
+    SYNTAX      DISPLAYSTRING
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+	"Average link status over the past 1 minute (between 0 and 1)"
+    ::= { tctSnmpMeasurements 18 }
+
+tctSnmpMotorTemp OBJECT-TYPE
+    SYNTAX      DISPLAYSTRING
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+	"Temperature of motor (degrees Celsius)"
+    ::= { tctSnmpMeasurements 19 }
+
+tctSnmpSystemState OBJECT-TYPE
+    SYNTAX      Integer32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+	"System state: (0) finding beacon; (1) found beacon, low frame rate; (2) found beacon, high frame rate"
+    ::= { tctSnmpMeasurements 20 }
+
+tctSnmpInvalidation OBJECT-TYPE
+    SYNTAX      Integer32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+	"System lost tracking of the beacon: (0) no; (1) yes"
+    ::= { tctSnmpMeasurements 21 }
+
+tctSnmpCamera OBJECT-TYPE
+    SYNTAX      DISPLAYSTRING
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+	"Camera settings (JSON string)"
+    ::= { tctSnmpMeasurements 22 }
+
+tctSnmpApc OBJECT-TYPE
+    SYNTAX      Integer32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+	"Automatic power control: (0) no request; (1) requested more power; (2) requested less power"
+    ::= { tctSnmpMeasurements 23 }
+
+tctSnmpErrors OBJECT-TYPE
+    SYNTAX      DISPLAYSTRING
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+	"Error codes (JSON array)"
+    ::= { tctSnmpMeasurements 24 }
+
+tctSnmpLookaway OBJECT-TYPE
+    SYNTAX      Integer32
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+	"System is looking away due to very high received power: (0) no; (1) yes"
+    ::= { tctSnmpMeasurements 25 }
+
+tctDeviceName OBJECT-TYPE
+    SYNTAX      DISPLAYSTRING
+    MAX-ACCESS  read-only
+    STATUS      current
+    DESCRIPTION
+	"Device name"
+    ::= { tctSnmpMeasurements 26 }
+
+tctTraps  OBJECT IDENTIFIER ::= { tctSnmp 2 }
+     tctLaserLinkDown NOTIFICATION-TYPE
+                     -- Note: 2 OID's get added to this trap prior to it being sent
+                     -- SNMPv2-MIB::sysName and TCT-SNMP-MIB::tctSnmpRxPwr
+                     STATUS current
+       		DESCRIPTION "Link down"
+       		::= { tctTraps 1 }
+
+     tctTrigger NOTIFICATION-TYPE
+		     		-- Note: Deprecated - no longer in use
+                    STATUS deprecated
+       			DESCRIPTION "Monitor event triggered"
+       			::= { tctTraps 2 }
+
+     tctLaserLinkUp NOTIFICATION-TYPE
+                     -- Note: 2 OID's get added to this trap prior to it being sent
+                     -- SNMPv2-MIB::sysName and TCT-SNMP-MIB::tctSnmpRxPwr
+                     STATUS current
+       		DESCRIPTION "Link up"
+       		::= { tctTraps 3 }
+
+     tctHighVibration NOTIFICATION-TYPE
+                     -- Note: Centauri has detected device movement affecting the laser link
+                     STATUS current
+       		DESCRIPTION "Vibration is excessive"
+       		::= { tctTraps 4 }
+
+     tctNormalVibration NOTIFICATION-TYPE
+                     STATUS current
+       		DESCRIPTION "Vibration is normal"
+       		::= { tctTraps 5 }
+
+     tctLowDiskSpace NOTIFICATION-TYPE
+                     -- Note: Trap is triggered when the main Centauri filesystem is critically low on free space
+                     STATUS current
+       		DESCRIPTION "Disk space low"
+       		::= { tctTraps 6 }
+
+     tctHighCPU NOTIFICATION-TYPE
+                     -- Note: CPU utilisation is critically high and may impact laser link performance
+                     STATUS current
+       		DESCRIPTION "CPU utilization high"
+       		::= { tctTraps 7 }
+
+     tctHighCorrection NOTIFICATION-TYPE
+                     -- Note: Trap is triggered when size and frequency of corrections to laser pointing is excessive
+                     STATUS current
+       		DESCRIPTION "Correction vector is excessive"
+       		::= { tctTraps 8 }
+
+     tctNormalCorrection NOTIFICATION-TYPE
+                     STATUS current
+       		DESCRIPTION "Correction vector is normal"
+       		::= { tctTraps 9 }
+
+     tctInvalidation NOTIFICATION-TYPE
+                     STATUS current
+       		DESCRIPTION "System lost tracking of the beacon"
+       		::= { tctTraps 10 }
+
+     tctTracking NOTIFICATION-TYPE
+                     STATUS current
+       		DESCRIPTION "System is tracking the beacon"
+       		::= { tctTraps 11 }
+
+     tctErrors NOTIFICATION-TYPE
+                     STATUS current
+       		DESCRIPTION "System raised errors"
+       		::= { tctTraps 12 }
+
+     tctLookaway NOTIFICATION-TYPE
+                     STATUS current
+       		DESCRIPTION "System is looking away due to very high received power"
+       		::= { tctTraps 13 }
+END
